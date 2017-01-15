@@ -104,7 +104,15 @@
                         </li>
                         <c:if test='${sessionScope.userrole == "A"}'>
 	                        <li>
-	                            <a href="#"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.admin"/></a>
+	                            <a href="#"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.admin"/><span class="fa arrow"></span></a>
+	                            <ul class="nav nav-second-level">
+	                            	<li>
+	                                    <a href="adSignFormList">결재문서</a>
+	                                </li>
+	                                <li>
+			                            <a href="sample2">테스트 </a>
+	                                </li>
+	                        	</ul>
 	                        </li>
 	                        <li>
 	                            <a href="adBoardGroupList"><i class="fa fa-files-o fa-fw"></i> <s:message code="memu.board"/></a>
