@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="survey">
+
+	<sql id="includeSurvey">
+        WHERE TBG.BGDELETEFLAG='N'
+        <if test="bgno!=null and bgno!=''">
+            AND SU.BGNO=#{bgno}
+        </if>  
+        <if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
+            <foreach item="item" index="index" collection="searchTypeArr" separator=" OR " open="AND (" close=")">
+                 ${item} LIKE CONCAT('%', #{searchKeyword},'%' )
+            </foreach>
+        </if>               
+    </sql>
+	
+	<select id="selectSurveyCount" resultType="Integer">
+        SELECT COUNT(*)
+          FROM SUR_SURVEY SU
+         INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=SU.BGNO
+         INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
+         <include refid="includeSurvey"/>
+    </select> 
+    
+    <select id="selectSurveyList" resultType="gu.survey.SurveyVO" parameterType="gu.board.BoardSearchVO">
+    	SELECT SURNO
+    			,SURTITLE
+    			,(SELECT COUNT(*) FROM SUR_QUESTION WHERE SURNO=SU.SURNO) QUESTIONCOUNT
+    			, CONCAT(SURSTARTDATE,' ~ ',SURENDDATE) SURPERIOD
+    			, SURDATE
+    			, (SELECT USERNM FROM COM_USER WHERE USERNO=SU.USERNO)USERNM
+    			, SURSTATE
+		FROM SUR_SURVEY SU
+		INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
+		INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=SU.BGNO
+		<include refid="includeSurvey"/>
+		 ORDER BY SURNO DESC 
+         <if test="rowStart != null">
+             LIMIT ${rowStart-1}, 10
+         </if>
+    </select>
+    
+</mapper>
+
