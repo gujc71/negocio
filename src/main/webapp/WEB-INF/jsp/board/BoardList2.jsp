@@ -5,14 +5,13 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    
     <title><s:message code="common.pageTitle"/></title>
     <link href="css/sb-admin/bootstrap.min.css" rel="stylesheet">
     <link href="css/sb-admin/metisMenu.min.css" rel="stylesheet">
@@ -94,45 +93,44 @@ function TreenodeActivate(node) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-files-o fa-fw"></i> <s:message code="board.boardName"/></h1>
-                    
+                    <h1 class="page-header"><i class="fa fa-files-o fa-fw"></i> <c:out value="${bgInfo.bgname}"/></h1>
                 </div>
-                
                 <!-- /.col-lg-12 -->
             </div>
             
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-	                <button id="boardlistBtn" type="button" class="btn btn-default" onclick="showBoardList()"><i class="fa  fa-files-o fa-fw"></i> 전체</button>      
+	                <button id="boardlistBtn" type="button" class="btn btn-default" onclick="showBoardList()"><i class="fa  fa-files-o fa-fw"></i> <c:out value="${bgInfo.bgname}"/></button>      
 	                <div id="boardlistDiv" style="width: 250px; height:300px; display: none;" class="popover fade bottom in" role="tooltip">
 	                	<div style="left:15%;" class="arrow"></div>
 	                	<div class="popover-content">
              				<div id="tree"></div>	
 	                	</div>
 	                </div>
-	                <c:if test="${bgInfo.bgreadonly=='N' || sessionScope.userrole=='A'}">
+                
+					<c:if test="${bgInfo.bgreadonly=='N' || sessionScope.userrole=='A'}">
 			            <button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('boardForm?bgno=<c:out value="${searchVO.bgno}"/>')">
 			            <i class="fa fa-edit fa-fw"></i> <s:message code="board.new"/></button>      
 					</c:if>
-                </div>
+				</div>
             </div>
             <!-- /.row -->
             <div class="panel panel-default">
             	<div class="panel-body">
 					<div class="listHead">
 						<div class="listHiddenField pull-left field60"><s:message code="board.no"/></div>
-						<div class="listHiddenField pull-right field100"><s:message code="board.locate"/></div>
 						<div class="listHiddenField pull-right field60"><s:message code="board.attach"/></div>
 						<div class="listHiddenField pull-right field60"><s:message code="board.hitCount"/></div>
 						<div class="listHiddenField pull-right field100"><s:message code="board.date"/></div>
 						<div class="listHiddenField pull-right field100"><s:message code="board.writer"/></div>
 						<div class="listTitle"><s:message code="board.title"/></div>
 					</div>
+					
 					<c:forEach var="listview" items="${noticelist}" varStatus="status">
 						<c:set var="listitem" value="${listview}" scope="request" />	
 						<c:set var="listitemNo" value="" />	
-						<jsp:include page="BoardListAllSub.jsp" >
+						<jsp:include page="BoardListSub.jsp" >
 							<jsp:param name="listitemNo" value="${listitemNo}" />
 							<jsp:param name="listitem" value="${listitem}" />
 						</jsp:include>
@@ -140,18 +138,20 @@ function TreenodeActivate(node) {
 					<c:if test="${listview.size()==0}">
 						<div class="listBody height200">
 						</div>
-					</c:if>					
+					</c:if>
 					<c:forEach var="listview" items="${listview}" varStatus="status">
 						<c:set var="listitem" value="${listview}" scope="request" />	
 						<c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request" />	
-						<jsp:include page="BoardListAllSub.jsp" >
+						<jsp:include page="BoardListSub.jsp" >
 							<jsp:param name="listitemNo" value="${listitemNo}" />
 							<jsp:param name="listitem" value="${listitem}" />
 						</jsp:include>
 					</c:forEach>	
+					
 					<br/>
 					<form role="form" id="form1" name="form1"  method="post">
 					    <jsp:include page="../common/pagingforSubmit.jsp" />
+				    
 						<div class="form-group">
 							<div class="checkbox col-lg-3 pull-left">
 							 	<label class="pull-right">
@@ -179,7 +179,7 @@ function TreenodeActivate(node) {
 						</div>
 					</form>	
             	</div>    
-            </div>            
+            </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->

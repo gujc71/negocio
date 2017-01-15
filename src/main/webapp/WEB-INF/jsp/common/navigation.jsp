@@ -85,6 +85,21 @@
                         <li>
                             <a href="boardList"><i class="fa fa-files-o fa-fw"></i> <s:message code="board.boardName"/></a>
                         </li>
+                        <%-- <li>
+                            <a href="msgList"><i class="fa fa-files-o fa-fw"></i> <s:message code="send.msg.title"/></a>
+                        </li> --%>
+                        <li>
+                        	<a href="#"><i class="fa fa-music fa-fw"></i> <s:message code="send.msg.title"/><span class="fa arrow"></span></a>
+                        	<ul class="nav nav-second-level">
+                        		<li>
+		                            <a href="msgListRev">받은 쪽지함 </a>
+                                </li>
+                                <li>
+                                    <a href="msgListSend">보낸 쪽지함</a>
+                                </li>
+                                
+	                        </ul>                            
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-music fa-fw"></i> 샘플<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">

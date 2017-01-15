@@ -17,7 +17,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework" level="debug"/>
     <logger name="org.springframework.security" level="info" />
 
     <logger name="java.sql" level="error" />

@@ -94,11 +94,15 @@ function TreenodeActivate(node) {
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header"><i class="fa fa-files-o fa-fw"></i> <c:out value="${bgInfo.bgname}"/></h1>
+
                 </div>
+                
                 <!-- /.col-lg-12 -->
+                
             </div>
             
             <!-- /.row -->
+            
             <div class="row">
                 <div class="col-lg-12">
 	                <button id="boardlistBtn" type="button" class="btn btn-default" onclick="showBoardList()"><i class="fa  fa-files-o fa-fw"></i> <c:out value="${bgInfo.bgname}"/></button>      
@@ -108,7 +112,8 @@ function TreenodeActivate(node) {
              				<div id="tree"></div>	
 	                	</div>
 	                </div>
-                
+<%--                 		<button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('boardForm?bgno=<c:out value="${searchVO.bgno}"/>')">
+			            <i class="fa fa-edit fa-fw"></i> <s:message code="board.new"/></button>   --%>
 					<c:if test="${bgInfo.bgreadonly=='N' || sessionScope.userrole=='A'}">
 			            <button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('boardForm?bgno=<c:out value="${searchVO.bgno}"/>')">
 			            <i class="fa fa-edit fa-fw"></i> <s:message code="board.new"/></button>      
