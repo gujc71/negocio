@@ -29,7 +29,7 @@ public class LoginCtr {
 
         modelMap.addAttribute("userid", userid);
 
-        return "membsser/memberLogin";
+        return "member/memberLogin";
     }
     
     /**
