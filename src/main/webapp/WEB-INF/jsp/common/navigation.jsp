@@ -84,6 +84,7 @@
                         </li>
                         <li>
                             <a href="boardList"><i class="fa fa-files-o fa-fw"></i> <s:message code="board.boardName"/></a>
+                            <a href="surveyList"><i class="fa fa-files-o fa-fw"></i> <s:message code="survey.boardName"/></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-music fa-fw"></i> 샘플<span class="fa arrow"></span></a>

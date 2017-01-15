@@ -453,6 +453,10 @@ list{
 	width: 130px;
 }
 
+.field200{
+	width: 200px;
+}
+
 @media screen and (max-width: 900px) {
 	.listHead,
 	.listHiddenField {
