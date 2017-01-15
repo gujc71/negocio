@@ -86,6 +86,14 @@
                             <a href="boardList"><i class="fa fa-files-o fa-fw"></i> <s:message code="board.boardName"/></a>
                         </li>
                         <li>
+                            <a href="#"><i class="fa fa-share-square fa-fw"></i>결재<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">공사중</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-music fa-fw"></i> 샘플<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
                                 <li>
@@ -104,15 +112,15 @@
                         </li>
                         <c:if test='${sessionScope.userrole == "A"}'>
 	                        <li>
-	                            <a href="#"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.admin"/><span class="fa arrow"></span></a>
+	                            <a href="#"> <s:message code="memu.admin"/></a>
+	                        </li>
+	                        <li>
+	                            <a href="#"><i class="fa fa-github-alt fa-fw"></i>결재관리<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
-	                            	<li>
+	                                <li>
 	                                    <a href="adSignFormList">결재문서</a>
 	                                </li>
-	                                <li>
-			                            <a href="sample2">테스트 </a>
-	                                </li>
-	                        	</ul>
+	                            </ul>
 	                        </li>
 	                        <li>
 	                            <a href="adBoardGroupList"><i class="fa fa-files-o fa-fw"></i> <s:message code="memu.board"/></a>
