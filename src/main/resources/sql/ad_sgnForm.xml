@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ad_sgnForm">
+	
+	<!-- 리스트 -->
+	
+	<select id="selectAdSignFormList" resultType="gu.admin.sign.AdSgnFormVO">
+		SELECT FRMNO, FRMNAME, FRMDESC, FRMCONTENTS
+		FROM SGN_FORM
+		WHERE DELETEFLAG = 'N'
+	</select>
+	
+	<!-- 리드 -->
+	
+	<select id="selectAdSignFormOne" parameterType="gu.admin.sign.AdSgnFormVO" resultType="gu.admin.sign.AdSgnFormVO">
+		SELECT FRMNO, FRMNAME, FRMDESC, FRMCONTENTS
+		FROM SGN_FORM
+		WHERE FRMNO = #{frmno}
+	</select>
+	
+	<!-- 저장 -->
+	
+	<insert id="insertAdSignForm" parameterType="gu.admin.sign.AdSgnFormVO">
+		INSERT INTO SGN_FORM (FRMNAME, FRMDESC, FRMCONTENTS, DELETEFLAG)
+		VALUES ( #{frmname}, #{frmdesc}, #{frmcontents}, 'N')
+	</insert>
+	
+	<!-- 수정 -->
+	
+	<update id="updateAdSignForm" parameterType="gu.admin.sign.AdSgnFormVO">
+		UPDATE SGN_FORM
+		SET FRMNAME = #{frmname}
+		  , FRMDESC = #{frmdesc}
+		  , FRMCONTENTS = #{frmcontents}
+		WHERE FRMNO = #{frmno}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteAdSignForm" parameterType="String">
+		UPDATE SGN_FORM
+		SET DELETEFLAG = 'Y'
+		WHERE FRMNO = #{frmno}
+	</delete>
+         
+</mapper>
+
