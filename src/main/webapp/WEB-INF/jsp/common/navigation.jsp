@@ -89,7 +89,16 @@
                             <a href="#"><i class="fa fa-share-square fa-fw"></i>결재<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">공사중</a>
+                                    <a href="signList">결재</a>
+                                </li>
+                                <li>
+                                    <a href="signFormList">새문서</a>
+                                </li>
+                                <li>
+                                    <a href="signDocGet">결재받을문서</a>
+                                </li>
+                                <li>
+                                    <a href="signDocDo">결재할문서</a>
                                 </li>
                             </ul>
                         </li>
@@ -118,7 +127,7 @@
 	                            <a href="#"><i class="fa fa-github-alt fa-fw"></i>결재관리<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 	                                <li>
-	                                    <a href="adSignFormList">결재문서</a>
+	                                    <a href="adSignFormList">결재문서관리</a>
 	                                </li>
 	                            </ul>
 	                        </li>

@@ -37,22 +37,18 @@
 
     <div id="wrapper">
 
-		<jsp:include page="../../common/navigation.jsp" />
+		<jsp:include page="../common/navigation.jsp" />
 		
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-github-alt fa-fw"></i>결재문서관리</h1>
+                    <h1 class="page-header"><i class="fa fa-share-square fa-fw"></i>새문서</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
 
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
-			            <button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('adSignForm')">
-			            <i class="fa fa-edit fa-fw"></i> <s:message code="board.new"/></button>      
-				</div>
             </div>
                         
             <!-- /.row -->

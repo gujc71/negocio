@@ -19,7 +19,7 @@
 	-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 		  p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" p:url="jdbc:log4jdbc:mysql://localhost/negocio?useUnicode=true&amp;characterEncoding=utf8" 
-          p:username="root" p:password="gujc1234"
+          p:username="root" p:password="test"
           p:initialSize="2"
           p:maxActive="30"
           p:maxIdle="10"

@@ -53,12 +53,12 @@ function fn_formSubmit(){
 
     <div id="wrapper">
 
-		<jsp:include page="../../common/navigation.jsp" />
+		<jsp:include page="../common/navigation.jsp" />
 		
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-github-alt fa-fw"></i>결재문서 수정 및 저장</h1>
+                    <h1 class="page-header"><i class="fa fa-share-square fa-fw"></i>기안문서</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -75,13 +75,13 @@ function fn_formSubmit(){
 	                            </div>
 	                        </div>
 	                        <div class="row form-group">
-	                            <label class="col-lg-1">설명</label>
+	                            <label class="col-lg-1">참조</label>
 	                            <div class="col-lg-9">
 	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${sgnInfo.frmdesc}"/>">
 	                            </div>
 	                        </div>
 	                    	<div class="row form-group">
-	                            <label class="col-lg-1"><s:message code="board.contents"/></label>
+	                            <label class="col-lg-1">문서</label>
 	                            <div class="col-lg-9">
 	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${sgnInfo.frmcontents}"/></textarea>
 	                            </div>
@@ -89,7 +89,10 @@ function fn_formSubmit(){
 	                    	 
 	                    </div>
 	                </div>
+	                <button class="btn btn-outline btn-primary">수정</button>
 			        <button class="btn btn-outline btn-primary"><s:message code="common.btnSave"/></button>
+			        <button class="btn btn-outline btn-primary">임시저장</button>
+			        <button class="btn btn-outline btn-primary">취소</button>
 					<input type="hidden" name="frmno" value="<c:out value="${sgnInfo.frmno}"/>"> 
 				</form>	
                 
