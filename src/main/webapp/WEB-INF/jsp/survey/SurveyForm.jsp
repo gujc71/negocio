@@ -32,7 +32,7 @@
     <script src="css/sb-admin/sb-admin-2.js"></script>
 	<script src="js/ckeditor/ckeditor.js"></script>
 	<script src="js/datepicker/bootstrap-datepicker.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/dynatree/jquery.dynatree.js"></script>
 	<script src="js/project9.js"></script>    
 
