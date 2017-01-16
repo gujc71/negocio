@@ -105,7 +105,7 @@ function surveyNew(){
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                     <button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('surveyForm?bgno=4')">
+                     <button type="button" class="btn btn-default pull-right" onclick="fn_moveToURL('surveyForm')">
                      <i class="fa fa-edit fa-fw"></i> <s:message code="survey.new"/></button>      
                 </div>
             </div>
@@ -135,13 +135,7 @@ function surveyNew(){
                          	 <div class="listHiddenField pull-left field60">
                                  <c:out value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/>
                             </div>
-                            <div class="listHiddenField pull-right field100 textCenter">
-                            	<c:choose>
-                            		<c:when test="${listview.surstate==0}"><s:message code="survey.surstate0"/></c:when>
-                            		<c:when test="${listview.surstate==1}"><s:message code="survey.surstate1"/></c:when>
-                            		<c:when test="${listview.surstate==2}"><s:message code="survey.surstate2"/></c:when>
-                            	</c:choose>
-                            </div>
+                            <div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.surstate}"/></div>
                         	<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.usernm}"/></div>
                         	<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.surdate}"/></div>
                        		<div class="listHiddenField pull-right field200 textCenter"><c:out value="${listview.surperiod}"/></div>

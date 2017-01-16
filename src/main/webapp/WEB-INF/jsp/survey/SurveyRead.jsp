@@ -38,7 +38,7 @@ function fn_formSubmit(){
 		url: "boardReplySave", 
 		dataType: "html",
 		type:"post", 
-		data : {surno:$("#surno").val(), rememo: $("#rememo1").val()},
+		data : {brdno:$("#brdno").val(), rememo: $("#rememo1").val()},
 		success: function(result){
 			if (result!=="") {
 				$("#rememo1").val("");
@@ -98,7 +98,7 @@ function fn_replyUpdateSave(){
 	$.ajax({
 		url: "boardReplySave", 
 		type:"post", 
-		data : {surno:$("#surno").val(), reno: updateReno, rememo: $("#rememo2").val()},
+		data : {brdno:$("#brdno").val(), reno: updateReno, rememo: $("#rememo2").val()},
 		success: function(result){
 			if (result!=="") {
 				$("#replyDiv").appendTo(document.body);
@@ -148,7 +148,7 @@ function fn_replyReplySave(){
 	$.ajax({
 		url: "boardReplySave",
 		type:"post", 
-		data : {surno:$("#surno").val(), reno: $("#reno3").val(), reparent: $("#reparent3").val(), rememo: $("#rememo3").val()},
+		data : {brdno:$("#brdno").val(), reno: $("#reno3").val(), reparent: $("#reparent3").val(), rememo: $("#rememo3").val()},
 		success: function(result){
 			if (result!=="") {
 				var parent = $("#reparent3").val();
@@ -163,11 +163,11 @@ function fn_replyReplySave(){
 	})	
 }
 
-function fn_addBoardLike(surno){
+function fn_addBoardLike(brdno){
 	$.ajax({
 		url: "addBoardLike",
 		type:"post", 
-		data : {surno: surno},
+		data : {brdno: brdno},
 		success: function(result){
 			if (result==="OK") {
 				$("#boardLikeBtn").hide();
@@ -189,7 +189,7 @@ function fn_addBoardLike(surno){
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-files-o fa-fw"></i><c:out value="${bgInfo.bgname}"/></h1>
+                    <h1 class="page-header"><i class="fa fa-files-o fa-fw"></i> <c:out value="${bgInfo.bgname}"/></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -198,36 +198,36 @@ function fn_addBoardLike(surno){
             <div class="row">
 				<div class="panel panel-default">
                     <div class="panel-heading">
-                        	<c:out value="${surveyInfo.surtitle}"/> [ <c:out value="${surveyInfo.usernm}"/> <c:out value="${surveyInfo.surdate}"/>]
+                        	<c:out value="${boardInfo.brdtitle}"/> [ <c:out value="${boardInfo.brdwriter}"/> <c:out value="${boardInfo.brddate}"/>]
                         <span class="pull-right text-muted">
-                        	<%-- <i class="fa fa-eye fa-fw"></i> <c:out value="${surveyInfo.brdhit}"/> --%>
-                        	<%-- <i class="fa fa-thumbs-o-up fa-fw"></i> <span id="boardLike"><c:out value="${surveyInfo.brdlike}"/></span> --%>
+                        	<i class="fa fa-eye fa-fw"></i> <c:out value="${boardInfo.brdhit}"/>
+                        	<i class="fa fa-thumbs-o-up fa-fw"></i> <span id="boardLike"><c:out value="${boardInfo.brdlike}"/></span>
                         </span>
                     </div>
                     <div class="panel-body">
-                        <p><c:out value="${surveyInfo.surcontents}" escapeXml="false"/></p>
+                        <p><c:out value="${boardInfo.brdmemo}" escapeXml="false"/></p>
                     </div>
                     <c:if test="${listview.size()>0}">
 		                <div class="panel-footer">
-		                	<%-- <c:forEach var="listview" items="${listview}" varStatus="status">	
+		                	<c:forEach var="listview" items="${listview}" varStatus="status">	
 		           				<a href="fileDownload?filename=<c:out value="${listview.filename}"/>&downname=<c:out value="${listview.realname }"/>"> 							 
 								<c:out value="${listview.filename}"/></a> <c:out value="${listview.size2String()}"/><br/>
-							</c:forEach> --%>
+							</c:forEach>
 	                     </div>
                     </c:if>
                 </div>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardList?bgno=<c:out value="${bgno}"/>')" ><s:message code="common.btnList"/></button>
-				<c:if test='${surveyInfo.userno==sessionScope.userno}' >
-	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardDelete?bgno=<c:out value="${surveyInfo.bgno}"/>&surno=<c:out value="${surveyInfo.surno}"/>', '<s:message code="common.btnDelete"/>')" ><s:message code="common.btnDelete"/></button>
-	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardForm?surno=<c:out value="${surveyInfo.surno}"/>')" ><s:message code="common.btnUpdate"/></button>
+				<c:if test='${boardInfo.userno==sessionScope.userno}' >
+	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardDelete?bgno=<c:out value="${boardInfo.bgno}"/>&brdno=<c:out value="${boardInfo.brdno}"/>', '<s:message code="common.btnDelete"/>')" ><s:message code="common.btnDelete"/></button>
+	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('boardForm?brdno=<c:out value="${boardInfo.brdno}"/>')" ><s:message code="common.btnUpdate"/></button>
 				</c:if>
 				
-				<%-- <c:if test="${surveyInfo.brdlikechk == null}" >
-	                <button id="boardLikeBtn" class="btn btn-outline btn-primary pull-right" onclick="fn_addBoardLike(<c:out value="${surveyInfo.surno}"/>)" ><i class="fa fa-thumbs-o-up fa-fw"></i> <s:message code="common.like"/></button>
-				</c:if> --%>
+				<c:if test="${boardInfo.brdlikechk == null}" >
+	                <button id="boardLikeBtn" class="btn btn-outline btn-primary pull-right" onclick="fn_addBoardLike(<c:out value="${boardInfo.brdno}"/>)" ><i class="fa fa-thumbs-o-up fa-fw"></i> <s:message code="common.like"/></button>
+				</c:if>
 							                               
 				<p>&nbsp;</p>
-				<input type="hidden" id="surno" name="surno" value="<c:out value="${surveyInfo.surno}"/>"> 
+				<input type="hidden" id="brdno" name="brdno" value="<c:out value="${boardInfo.brdno}"/>"> 
 				
 				<c:if test="${bgInfo.bgreply=='Y'}">
                     <div class="panel panel-default">
@@ -275,7 +275,7 @@ function fn_addBoardLike(surno){
 				</c:if>
 
 				<div id="replyDiv" style="width: 99%; display:none">
-						<input type="hidden" id="surno2" name="surno" value="<c:out value="${surveyInfo.surno}"/>"> 
+						<input type="hidden" id="brdno2" name="brdno" value="<c:out value="${boardInfo.brdno}"/>"> 
 						<input type="hidden" id="reno2" name="reno">
 						<div class="col-lg-6">
 							<textarea class="form-control" id="rememo2" name="rememo2" rows="3" maxlength="500"></textarea>
@@ -287,7 +287,7 @@ function fn_addBoardLike(surno){
 				</div>
 				
 				<div id="replyDialog" style="width: 99%; display:none">
-						<input type="hidden" id="surno3" name="surno" value="<c:out value="${surveyInfo.surno}"/>"> 
+						<input type="hidden" id="brdno3" name="brdno" value="<c:out value="${boardInfo.brdno}"/>"> 
 						<input type="hidden" id="reno3" name="reno"> 
 						<input type="hidden" id="reparent3" name="reparent">
 						<div class="col-lg-6">
