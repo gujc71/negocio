@@ -9,6 +9,11 @@ public class SurveyVO {
 	private String questioncount;
 	private String surstate;
 	private String usernm;
+	private String userno;
+	private String surresponsor;
+	private String surstartdate;
+	private String surenddate;
+	private String surcontents;
 	
 	public String getBgno() {
 		return bgno;
@@ -34,12 +39,6 @@ public class SurveyVO {
 	public void setSurdate(String surdate) {
 		this.surdate = surdate;
 	}
-	public String getSurperiod() {
-		return surperiod;
-	}
-	public void setSurperiod(String surperiod) {
-		this.surperiod = surperiod;
-	}
 	public String getQuestioncount() {
 		return questioncount;
 	}
@@ -57,5 +56,48 @@ public class SurveyVO {
 	}
 	public void setUsernm(String usernm) {
 		this.usernm = usernm;
+	}
+	public String getUserno() {
+		return userno;
+	}
+	public void setUserno(String userno) {
+		this.userno = userno;
+	}
+	public String getSurresponsor() {
+		return surresponsor;
+	}
+	public void setSurresponsor(String surresponsor) {
+		this.surresponsor = surresponsor;
+	}
+	public String getSurstartdate() {
+		return surstartdate;
+	}
+	public void setSurstartdate(String surstartdate) {
+		this.surstartdate = surstartdate;
+	}
+	public String getSurenddate() {
+		return surenddate;
+	}
+	public void setSurenddate(String surenddate) {
+		this.surenddate = surenddate;
+	}
+	public String getSurcontents() {
+		return surcontents;
+	}
+	public void setSurcontents(String surcontents) {
+		this.surcontents = surcontents;
+	}
+	public String getSurperiod() {
+		return surperiod;
+	}
+	public void setSurperiod(String surperiod) {
+		this.surperiod = surperiod;
+	}
+	@Override
+	public String toString() {
+		return "SurveyVO [bgno=" + bgno + ", surno=" + surno + ", surtitle=" + surtitle + ", surdate=" + surdate
+				+ ", questioncount=" + questioncount + ", surstate=" + surstate + ", usernm=" + usernm + ", userno="
+				+ userno + ", surresponsor=" + surresponsor + ", surstartdate=" + surstartdate + ", surenddate="
+				+ surenddate + "]";
 	}
 }

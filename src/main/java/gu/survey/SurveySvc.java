@@ -6,19 +6,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import gu.board.BoardSearchVO;
-import gu.board.BoardSvc;
 
 @Service
 public class SurveySvc {
 	
 	@Autowired
     private SqlSessionTemplate sqlSession;    
-    @Autowired
-    private DataSourceTransactionManager txManager;
+//    @Autowired
+//    private DataSourceTransactionManager txManager;
     
     static final Logger LOGGER = LoggerFactory.getLogger(SurveySvc.class);
     
@@ -28,5 +26,13 @@ public class SurveySvc {
     
     public List<?> selectSurveyList(BoardSearchVO param) {
         return sqlSession.selectList("selectSurveyList", param);
+    }
+    
+    public void surveySave(SurveyVO param){
+    	sqlSession.insert("surveySave", param);
+    }
+    
+    public SurveyVO selectSurveyOne(String param){
+    	return sqlSession.selectOne("selectSurveyOne", param);
     }
 }

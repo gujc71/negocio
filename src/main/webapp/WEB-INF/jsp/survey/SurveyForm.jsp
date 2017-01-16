@@ -38,7 +38,7 @@
 
 <script>
 window.onload =function() {
-	  CKEDITOR.replace( 'brdmemo', { 'filebrowserUploadUrl': 'upload4ckeditor'});
+	  CKEDITOR.replace( 'surcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
 	  
 	  $('#term1').datepicker().on('changeDate', function(ev) {
 			if (ev.viewMode=="days"){
@@ -53,10 +53,10 @@ window.onload =function() {
 }	  
 
 function fn_formSubmit(){
-	CKEDITOR.instances["brdmemo"].updateElement();
+	CKEDITOR.instances["surcontents"].updateElement();
 	
-	if ( ! chkInputValue("#brdtitle", "<s:message code="board.title"/>")) return false;
-	if ( ! chkInputValue("#brdmemo", "<s:message code="board.contents"/>")) return false;
+	if ( ! chkInputValue("#surtitle", "<s:message code="survey.title"/>")) return false;
+	if ( ! chkInputValue("#surcontents", "<s:message code="survey.contents"/>")) return false;
 	
 	$("#form1").submit();
 }
@@ -100,13 +100,13 @@ function deptTreeActivate(node) {
             
             <!-- /.row -->
             <div class="row">
-            	<form id="form1" name="form1" role="form" action="boardSave" method="post" onsubmit="return fn_formSubmit();" >
+            	<form id="form1" name="form1" role="form" action="surveySave" method="post" onsubmit="return fn_formSubmit();" >
 					<div class="panel panel-default">
 	                    <div class="panel-body">
 	                    	<div class="row form-group">
-	                            <label class="col-lg-1"><s:message code="board.title"/></label>
+	                            <label class="col-lg-1"><s:message code="survey.title"/></label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="brdtitle" name="brdtitle" size="70" maxlength="250" value="<c:out value="${boardInfo.brdtitle}"/>">
+	                            	<input type="text" class="form-control" id="surtitle" name="surtitle" size="70" maxlength="250" value="<c:out value="${surveyInfo.surtitle}"/>">
 	                            	<c:if test="${bgInfo.bgnotice=='Y'}">
 									 	<label>
 				                        	<input type="checkbox" name="brdnotice" value="Y" <c:if test="${boardInfo.brdnotice=='Y'}">checked="checked"</c:if>/>
@@ -118,7 +118,7 @@ function deptTreeActivate(node) {
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1"><s:message code="survey.contents"/></label>
 	                            <div class="col-lg-9">
-	                            	<textarea id="brdmemo" class="form-control" name="brdmemo" rows="10" cols="60"><c:out value="${boardInfo.brdmemo}"/></textarea>
+	                            	<textarea id="surcontents" class="form-control" name="surcontents" rows="10" cols="60"><c:out value="${surveyInfo.surcontents}"/></textarea>
 	                            </div>
 	                        </div>                        
 	                    	
@@ -127,10 +127,10 @@ function deptTreeActivate(node) {
                     	 			<s:message code="survey.period"/>
 								</label>
                  				<div class="col-lg-2">
-									<input class="form-control" size="16" id="term1" type="text" value="<c:out value="${today}"/>" readonly>
+									<input class="form-control" size="16" id="term1" name="surstartdate" type="text" value="<c:out value="${today}"/>" readonly>
                 			 	</div>
                  				<div class="col-lg-2">
-			  						<input class="form-control" size="16" id="term2" type="text" value="<c:out value="${today}"/>" readonly>
+			  						<input class="form-control" size="16" id="term2" name="surenddate" type="text" value="<c:out value="${today}"/>" readonly>
                  				</div>
                  			</div> 
                  			<div class="row form-group">
@@ -139,7 +139,7 @@ function deptTreeActivate(node) {
 								</label>
 								<div class="col-lg-3">
 									<div class="input-group custom-search-form">
-               							<input type="hidden" name="deptno" id="deptno">
+               							<input type="hidden" name="surresponsor" id="deptno">
                            				<input class="form-control" type="text" name="deptnm" id="deptnm" readonly="readonly">
                            				<span class="input-group-btn">
                                				<button class="btn btn-default" type="button" onclick="fn_searchDept()">
