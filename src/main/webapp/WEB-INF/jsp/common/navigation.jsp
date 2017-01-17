@@ -95,10 +95,13 @@
                                     <a href="signFormList">새문서</a>
                                 </li>
                                 <li>
-                                    <a href="signDocGet">결재받을문서</a>
+                                    <a href="signDocTempList">임시저장문서</a>
                                 </li>
                                 <li>
-                                    <a href="signDocDo">결재할문서</a>
+                                    <a href="signDocGetList">결재받을문서</a>
+                                </li>
+                                <li>
+                                    <a href="signDocDoList">결재할문서</a>
                                 </li>
                             </ul>
                         </li>

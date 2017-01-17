@@ -42,7 +42,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-share-square fa-fw"></i>새문서</h1>
+                    <h1 class="page-header"><i class="fa fa-share-square fa-fw"></i>결재받을문서</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -53,33 +53,38 @@
                         
             <!-- /.row -->
             <div class="row">
-				<div class="col-lg-8" >
-	            	<div class="panel panel-default" >
-	                    <div class="panel-body">
-							<div class="listHead">
-								<div class="listHiddenField pull-left field60"><s:message code="board.no"/></div>
-								<div class="listHiddenField pull-right field120">설명</div>
-								<div class="listTitle">문서종류</div>
-								
-							</div>
-							
-							<c:forEach var="listview" items="${listview}" varStatus="status">
-		                       		                    
-		                        <div class="listBody">
-			                        <div class="listHiddenField pull-left field60">
-										<c:out value="${listview.frmno}"/>
-									</div>
-									<div class="listHiddenField pull-right field120">
-										<c:out value="${listview.frmdesc}"/>										
-									</div>
-									<div class="listTitle">
-										<a href="signDocForm?frmno=<c:out value="${listview.frmno}"/>" ><c:out value="${listview.frmname}"/></a>
-									</div>
-		                        </div>
-		                    
-		                    </c:forEach>					
-		            	</div>   
-					</div>
+				<div class="panel panel-default" >
+                    <div class="panel-body">
+						<div class="listHead">
+							<div class="listHiddenField pull-left field60"><s:message code="board.no"/></div>
+							<div class="listHiddenField pull-right field100">상태</div>
+							<div class="listHiddenField pull-right field100">기안일</div>
+							<div class="listHiddenField pull-right field100">문서종류</div>
+							<div class="listTitle">제목</div>
+						</div>
+						
+						<c:forEach var="listview" items="${listview}" varStatus="status">
+	                       		                    
+	                        <div class="listBody">
+		                        <div class="listHiddenField pull-left field60">
+									<c:out value="${listview.frmno}"/>
+								</div>
+								<div class="listHiddenField pull-right field100">
+									<c:out value="${listview.frmdesc}"/>										
+								</div>
+								<div class="listHiddenField pull-right field100">
+									<c:out value="${listview.frmdesc}"/>										
+								</div>
+								<div class="listHiddenField pull-right field100">
+									<c:out value="${listview.frmdesc}"/>										
+								</div>
+								<div class="listTitle">
+									<a href="signDocGet?frmno=<c:out value="${listview.frmno}"/>" ><c:out value="${listview.frmname}"/></a>
+								</div>
+	                        </div>
+	                    
+	                    </c:forEach>					
+	            	</div>   
 				</div>                 
             </div>
             <!-- /.row -->

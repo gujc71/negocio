@@ -1,21 +1,25 @@
 package gu.sign;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller 
 public class SignCtr {
 
-//    @Autowired
-//    private BoardSvc boardSvc;
+    @Autowired
+    private SignSvc signSvc;
     
     static final Logger LOGGER = LoggerFactory.getLogger(SignCtr.class);
     
     /**
-     * 결재 현황.
+     * 결재현황.
      */
     @RequestMapping(value = "/signList")
     public String signList() {
@@ -24,12 +28,25 @@ public class SignCtr {
     }
     
     /**
-     * 새문서 리스트.
+     * 새문서리스트.
      */
     @RequestMapping(value = "/signFormList")
-    public String signFormList() {
+    public String signFormList(ModelMap modelMap) {
         
+    	List<?> listview = signSvc.selectSignFormList();
+    	
+    	modelMap.addAttribute("listview", listview);
+    	
         return "sign/SignFormList";
+    }
+    
+    /**
+     * 임시저장문서리스트.
+     */
+    @RequestMapping(value = "/signDocTempList")
+    public String signDocTempList() {
+        
+        return "sign/SignDocTempList";
     }
     
     /**
@@ -42,12 +59,30 @@ public class SignCtr {
     }
     
     /**
+     * 결재받을문서리스트.
+     */
+    @RequestMapping(value = "/signDocGetList")
+    public String signDocGetList() {
+        
+        return "sign/SignDocGetList";
+    }
+    
+    /**
      * 결재받을문서.
      */
     @RequestMapping(value = "/signDocGet")
     public String signDocGet() {
         
         return "sign/SignDocGet";
+    }
+    
+    /**
+     * 결재할문서리스트.
+     */
+    @RequestMapping(value = "/signDocDoList")
+    public String signDocDoList() {
+        
+        return "sign/SignDocDoList";
     }
     
     /**

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="sign">
+	
+	<!-- 새문서리스트 -->
+	
+	<select id="selectSignFormList" resultType="gu.sign.SignFormVO">
+		SELECT FRMNO, FRMNAME, FRMDESC, FRMCONTENTS
+		FROM SGN_FORM
+		WHERE DELETEFLAG = 'N'
+	</select>
+	
+</mapper>
+

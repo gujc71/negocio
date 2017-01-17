@@ -58,6 +58,16 @@
 	                    	<div class="col-lg-4" >
 				            	<div class="panel panel-default" >
 				            		<div class="panel-heading">
+										새문서	            				                            
+				                    </div>
+				                    <div class="panel-body" id="">
+				                    	
+								    </div>    
+								</div>
+							</div>
+	                    	<div class="col-lg-4" >
+				            	<div class="panel panel-default" >
+				            		<div class="panel-heading">
 										임시저장문서	            				                            
 				                    </div>
 				                    <div class="panel-body" id="">
