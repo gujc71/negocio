@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import gu.sign.SignFormVO;
 
 @Controller 
 public class SignCtr {
@@ -53,7 +54,11 @@ public class SignCtr {
      * 기안문서.
      */
     @RequestMapping(value = "/signDocForm")
-    public String signDocForm() {
+    public String signDocForm(ModelMap modelMap, SignFormVO signFormVO) {
+    	
+    	SignFormVO signFormInfo = signSvc.selectSignFormOne(signFormVO);
+    	
+    	modelMap.addAttribute("signFormInfo", signFormInfo);
         
         return "sign/SignDocForm";
     }

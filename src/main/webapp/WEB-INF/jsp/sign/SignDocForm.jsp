@@ -36,7 +36,7 @@ window.onload =function() {
 	CKEDITOR.replace( 'frmcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
 }	  
 
-function fn_formSubmit(){
+/* function fn_formSubmit(){
 	CKEDITOR.instances["frmcontents"].updateElement();
 	
 	if ( ! chkInputValue("#frmname", "제목")) return false;
@@ -44,7 +44,7 @@ function fn_formSubmit(){
 	if ( ! chkInputValue("#frmcontents", "내용")) return false;
 	
 	$("#form1").submit();
-} 
+}  */
 </script>
     
 </head>
@@ -65,36 +65,36 @@ function fn_formSubmit(){
             
             <!-- /.row -->
             <div class="row">
-            	<form id="form1" name="form1" role="form" action="adSignFormSave" method="post" onsubmit="return fn_formSubmit();" >
+            	<!-- <form id="form1" name="form1" role="form" action="" method="post" onsubmit="return fn_formSubmit();" > -->
 					<div class="panel panel-default">
 	                    <div class="panel-body">
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1"><s:message code="board.title"/></label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmname" name="frmname" size="70" maxlength="250" value="<c:out value="${sgnInfo.frmname}"/>">
+	                            	<input type="text" class="form-control" id="frmname" name="frmname" size="70" maxlength="250" value="<c:out value="${signFormInfo.frmname}"/>">
 	                            </div>
 	                        </div>
 	                        <div class="row form-group">
 	                            <label class="col-lg-1">참조</label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${sgnInfo.frmdesc}"/>">
+	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${signFormInfo.frmdesc}"/>">
 	                            </div>
 	                        </div>
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1">문서</label>
 	                            <div class="col-lg-9">
-	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${sgnInfo.frmcontents}"/></textarea>
+	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${signFormInfo.frmcontents}"/></textarea>
 	                            </div>
 	                        </div>         
 	                    	 
 	                    </div>
 	                </div>
-	                <button class="btn btn-outline btn-primary">수정</button>
-			        <button class="btn btn-outline btn-primary"><s:message code="common.btnSave"/></button>
-			        <button class="btn btn-outline btn-primary">임시저장</button>
-			        <button class="btn btn-outline btn-primary">취소</button>
-					<input type="hidden" name="frmno" value="<c:out value="${sgnInfo.frmno}"/>"> 
-				</form>	
+	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >수정</button>
+			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocGet?frmno=<c:out value="${signFormInfo.frmno}"/>')"  ><s:message code="common.btnSave"/></button>
+			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocTempList?frmno=<c:out value="${signFormInfo.frmno}"/>')"  >임시저장</button>
+			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >취소</button>
+					<input type="hidden" name="frmno" value="<c:out value="${signFormInfo.frmno}"/>"> 
+				<!-- </form>	 -->
                 
             </div>
             <!-- /.row -->

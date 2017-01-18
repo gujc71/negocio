@@ -13,18 +13,18 @@ public class SignSvc {
     private SqlSessionTemplate sqlSession;
     
     /**
-     * 게시판 리스트.
+     * 새문서리스트.
      */
     public List<?> selectSignFormList() {
         return sqlSession.selectList("selectSignFormList");
     }
     
     /**
-     * 게시판 리드.
+     * 기안문서에 들어갈 새문서.
      */
-    /*public AdSgnFormVO selectAdSignFormOne(AdSgnFormVO param) {
-        return sqlSession.selectOne("selectAdSignFormOne", param);
-    }*/
+    public SignFormVO selectSignFormOne(SignFormVO param) {
+        return sqlSession.selectOne("selectSignFormOne", param);
+    }
     
     /**
      * 게시판 저장 및 수정.

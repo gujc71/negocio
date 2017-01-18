@@ -11,5 +11,13 @@
 		WHERE DELETEFLAG = 'N'
 	</select>
 	
+	<!-- 기안문서에 들어갈 새문서 -->
+	
+	<select id="selectSignFormOne" parameterType="gu.sign.SignFormVO" resultType="gu.sign.SignFormVO">
+		SELECT FRMNO, FRMNAME, FRMDESC, FRMCONTENTS
+		FROM SGN_FORM
+		WHERE FRMNO = #{frmno}
+	</select>
+	
 </mapper>
 
