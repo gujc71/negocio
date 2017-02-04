@@ -36,15 +36,15 @@ window.onload =function() {
 	CKEDITOR.replace( 'frmcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
 }	  
 
-/* function fn_formSubmit(){
+function fn_formSubmit(sdstate){
 	CKEDITOR.instances["frmcontents"].updateElement();
 	
 	if ( ! chkInputValue("#frmname", "제목")) return false;
-	if ( ! chkInputValue("#frmdesc", "설명")) return false;
 	if ( ! chkInputValue("#frmcontents", "내용")) return false;
 	
+	$("#sdstate").text(sdstate);
 	$("#form1").submit();
-}  */
+}
 </script>
     
 </head>
@@ -65,7 +65,7 @@ window.onload =function() {
             
             <!-- /.row -->
             <div class="row">
-            	<!-- <form id="form1" name="form1" role="form" action="" method="post" onsubmit="return fn_formSubmit();" > -->
+            	<form id="form1" name="form1" action="signDocSave" method="post" >
 					<div class="panel panel-default">
 	                    <div class="panel-body">
 	                    	<div class="row form-group">
@@ -89,12 +89,14 @@ window.onload =function() {
 	                    	 
 	                    </div>
 	                </div>
-	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >수정</button>
-			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocGet?frmno=<c:out value="${signFormInfo.frmno}"/>')"  ><s:message code="common.btnSave"/></button>
-			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signDocTempList?frmno=<c:out value="${signFormInfo.frmno}"/>')"  >임시저장</button>
-			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >취소</button>
 					<input type="hidden" name="frmno" value="<c:out value="${signFormInfo.frmno}"/>"> 
-				<!-- </form>	 -->
+					<input type="hidden" name="sdno" value="<c:out value="${signDocInfo.sdno}"/>"> 
+					<input type="hidden" name="sdstate" id="sdstate" value="<c:out value="${signDocInfo.sdstate}"/>"> 
+				</form>
+			        <button class="btn btn-outline btn-primary" onclick="fn_formSubmit('2')" ><s:message code="common.btnSave"/></button>
+			        <button class="btn btn-outline btn-primary" onclick="fn_formSubmit('1')">임시저장</button>
+	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >수정</button>
+			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >취소</button>
                 
             </div>
             <!-- /.row -->

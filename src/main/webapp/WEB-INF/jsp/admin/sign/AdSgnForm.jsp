@@ -71,26 +71,26 @@ function fn_formSubmit(){
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1"><s:message code="board.title"/></label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmname" name="frmname" size="70" maxlength="250" value="<c:out value="${sgnInfo.frmname}"/>">
+	                            	<input type="text" class="form-control" id="frmname" name="frmname" size="70" maxlength="250" value="<c:out value="${sgnFormInfo.frmname}"/>">
 	                            </div>
 	                        </div>
 	                        <div class="row form-group">
 	                            <label class="col-lg-1">설명</label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${sgnInfo.frmdesc}"/>">
+	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${sgnFormInfo.frmdesc}"/>">
 	                            </div>
 	                        </div>
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1"><s:message code="board.contents"/></label>
 	                            <div class="col-lg-9">
-	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${sgnInfo.frmcontents}"/></textarea>
+	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${sgnFormInfo.frmcontents}"/></textarea>
 	                            </div>
 	                        </div>         
 	                    	 
 	                    </div>
 	                </div>
 			        <button class="btn btn-outline btn-primary"><s:message code="common.btnSave"/></button>
-					<input type="hidden" name="frmno" value="<c:out value="${sgnInfo.frmno}"/>"> 
+					<input type="hidden" name="frmno" value="<c:out value="${sgnFormInfo.frmno}"/>"> 
 				</form>	
                 
             </div>

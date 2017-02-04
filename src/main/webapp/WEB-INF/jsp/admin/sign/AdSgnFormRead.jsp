@@ -71,7 +71,7 @@
                 </div>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('adSignFormList')" ><s:message code="common.btnList"/></button>
                 <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('adSignFormDelete?frmno=<c:out value="${sgnFormInfo.frmno}"/>', '<s:message code="common.btnDelete"/>')" ><s:message code="common.btnDelete"/></button>
-                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('adSignFormModify?frmno=<c:out value="${sgnFormInfo.frmno}"/>')" ><s:message code="common.btnUpdate"/></button>
+                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('adSignForm?frmno=<c:out value="${sgnFormInfo.frmno}"/>')" ><s:message code="common.btnUpdate"/></button>
             </div>
             <!-- /.row -->
         </div>
