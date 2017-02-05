@@ -4,8 +4,8 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
 	<c:url var="link" value="msgRead">
-		<c:param name="brdno" value="${listitem.brdno}" />
-	</c:url>		
+		<c:param name="msgno" value="${listitem.msgno}" />
+	</c:url>
 	<div class="listBody">
 		<div class="listHiddenField pull-left field60">
 			<c:choose>
@@ -23,15 +23,15 @@
 				<i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>
 			</c:if>
 		</div>
-		<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listitem.brddate}"/></div>
-		<div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listitem.userno}"/>"><c:out value="${listitem.brdwriter}"/></a></div>
-		<div class="listTitle" title="<c:out value="${listitem.brdtitle}"/>">
-			<a href="${link}" <c:if test="${listitem.brdnotice=='Y'}">class="notice"</c:if>><c:out value="${listitem.brdtitle}"/></a>							
+		<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listitem.msgdate}"/></div>
+		<div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listitem.userno}"/>"><c:out value="${listitem.msgwriter}"/></a></div>
+		<div class="listTitle" title="<c:out value="${listitem.msgtitle}"/>">
+			<a href="${link}" <c:if test="${listitem.msgnotice=='Y'}">class="notice"</c:if>><c:out value="${listitem.msgtitle}"/></a>							
 		</div>
 		<!-- 작은창 -->
 		<div class="showField text-muted small">
-			<c:out value="${listitem.brdwriter}"/> 
-			<c:out value="${listitem.brddate}"/>
+			<c:out value="${listitem.msgwriter}"/> 
+			<c:out value="${listitem.msgdate}"/>
 			<c:if test="${listitem.filecnt>0}">
 				<i class="fa fa-download fa-fw" title="<c:out value="${listitem.filecnt}"/>"></i>
 			</c:if>

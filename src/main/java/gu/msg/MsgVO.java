@@ -5,96 +5,75 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MsgVO {
 
-    private String bgno;
-    private String bgname;
-    private String brdno;
-    private String brdtitle; 
-    private String brdwriter; 
-    private String brdmemo; 
-    private String brddate; 
-    private String brdhit;  
-    private String brddeleteflag; 
-    private String filecnt;
-    private String replycnt;
+    private String msgno;
+    private String msgcontent; 
+    private String senuser; 
+    private String revuser; 
+    private String sendate; 
+    private String revdate;  
+    private String sendelyn; 
+    private String fileyn;
+    private String revdelyn;
     private String userno;
-    private String brdnotice;
-    private String brdlike;
-    private String brdlikechk;          // like button click check
-    private String extfield1;           // etc
     
     /* 첨부파일 */
     private List<MultipartFile> uploadfile;
 
-    public String getBgno() { 
-        return bgno;
+
+    public String getMsgno() {
+        return msgno;
     }
 
-    public void setBgno(String bgno) {
-        this.bgno = bgno;
+    public void setMsgno(String msgno) {
+        this.msgno = msgno;
     }
 
-    public String getBgname() {
-        return bgname;
+    public String getMsgcontent() {
+        return msgcontent; 
     }
 
-    public void setBgname(String bgname) {
-        this.bgname = bgname;
+    public void setMsgcontent(String msgcontent) {
+        this.msgcontent = msgcontent;
     }
 
-    public String getBrdno() {
-        return brdno;
+    public String getSenuser() {
+        return senuser;
     }
 
-    public void setBrdno(String brdno) {
-        this.brdno = brdno;
+    public void setSenuser(String senuser) {
+        this.senuser = senuser;
     }
 
-    public String getBrdtitle() {
-        return brdtitle; 
+    public String getRevuser() {
+        return revuser.replaceAll("(?i)<script", "&lt;script");
     }
 
-    public void setBrdtitle(String brdtitle) {
-        this.brdtitle = brdtitle;
+    public void setRevuser(String revuser) {
+        this.revuser = revuser;
     }
 
-    public String getBrdwriter() {
-        return brdwriter;
+    public String getSendate() {
+        return sendate;
     }
 
-    public void setBrdwriter(String brdwriter) {
-        this.brdwriter = brdwriter;
+    public void setSendate(String sendate) {
+        this.sendate = sendate;
     }
 
-    public String getBrdmemo() {
-        return brdmemo.replaceAll("(?i)<script", "&lt;script");
+    public String getRevdate() {
+        return revdate;
     }
 
-    public void setBrdmemo(String brdmemo) {
-        this.brdmemo = brdmemo;
+    public void setRevdate(String revdate) {
+        this.revdate = revdate;
     }
 
-    public String getBrddate() {
-        return brddate;
+    public String getsendelyn() {
+        return sendelyn;
     }
 
-    public void setBrddate(String brddate) {
-        this.brddate = brddate;
-    }
-
-    public String getBrdhit() {
-        return brdhit;
-    }
-
-    public void setBrdhit(String brdhit) {
-        this.brdhit = brdhit;
-    }
-
-    public String getBrddeleteflag() {
-        return brddeleteflag;
-    }
-
-    public void setBrddeleteflag(String brddeleteflag) {
-        this.brddeleteflag = brddeleteflag;
+    public void setsendelyn(String sendelyn) {
+        this.sendelyn = sendelyn;
     }
 
     public List<MultipartFile> getUploadfile() {
@@ -106,19 +85,19 @@ public class MsgVO {
     }
 
     public String getFilecnt() {
-        return filecnt;
+        return fileyn;
     }
 
-    public void setFilecnt(String filecnt) {
-        this.filecnt = filecnt;
+    public void setFilecnt(String fileyn) {
+        this.fileyn = fileyn;
     }
 
-    public String getReplycnt() {
-        return replycnt;
+    public String getRevdelyn() {
+        return revdelyn;
     }
 
-    public void setReplycnt(String replycnt) {
-        this.replycnt = replycnt;
+    public void setRevdelyn(String revdelyn) {
+        this.revdelyn = revdelyn;
     }
 
     public String getUserno() {
@@ -129,36 +108,4 @@ public class MsgVO {
         this.userno = userno;
     }
 
-    public String getBrdnotice() {
-        return brdnotice;
-    }
-
-    public void setBrdnotice(String brdnotice) {
-        this.brdnotice = brdnotice;
-    }
-
-    public String getBrdlike() {
-        return brdlike;
-    }
-
-    public void setBrdlike(String brdlike) {
-        this.brdlike = brdlike;
-    }
-
-    public String getBrdlikechk() {
-        return brdlikechk;
-    }
-
-    public void setBrdlikechk(String brdlikechk) {
-        this.brdlikechk = brdlikechk;
-    }
-
-    public String getExtfield1() {
-        return extfield1;
-    }
-
-    public void setExtfield1(String extfield1) {
-        this.extfield1 = extfield1;
-    }
-    
 }

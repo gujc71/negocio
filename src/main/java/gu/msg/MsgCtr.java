@@ -73,38 +73,21 @@ public class MsgCtr {
     }
     @RequestMapping(value = "/msgListRev")
     public String msgList1(HttpServletRequest request, MsgSearchVO searchVO, ModelMap modelMap) {
-    	String globalKeyword = request.getParameter("globalKeyword");  // it's search from left side bar
-        if (globalKeyword!=null & !"".equals(globalKeyword)) {
-            searchVO.setSearchKeyword(globalKeyword);
-        }
-        
         String userno = request.getSession().getAttribute("userno").toString();
         
         Integer alertcount = etcSvc.selectAlertCount(userno);
         modelMap.addAttribute("alertcount", alertcount);
+        ////////////////////////////////////////////////////////
         
-        if (searchVO.getBgno() != null && !"".equals(searchVO.getBgno())) {
-            BoardGroupVO bgInfo = msgSvc.selectBoardGroupOne4Used(searchVO.getBgno());
-            if (bgInfo == null) { 
-                return "board/BoardGroupFail";
-            }
-            modelMap.addAttribute("bgInfo", bgInfo);
-        }
-        
-        List<?> noticelist  = msgSvc.selectNoticeList(searchVO);
-
         searchVO.pageCalculate( msgSvc.selectmsgCount(searchVO) ); // startRow, endRow
         List<?> listview  = msgSvc.selectmsgList(searchVO);
         
         modelMap.addAttribute("searchVO", searchVO);
         modelMap.addAttribute("listview", listview);
-        modelMap.addAttribute("noticelist", noticelist);
         
-        if (searchVO.getBgno() == null || "".equals(searchVO.getBgno())) {
-            return "msg/MsgListRev";
-        }
         return "msg/MsgListRev";
     }
+    
     @RequestMapping(value = "/msgListSend")
     public String msgList2(HttpServletRequest request, MsgSearchVO searchVO, ModelMap modelMap) {
     	String globalKeyword = request.getParameter("globalKeyword");  // it's search from left side bar
@@ -161,9 +144,9 @@ public class MsgCtr {
         return "msg/MsgForm";
     }
     
-    /**
+/*    *//**
      * 글 저장.
-     */
+     *//*
     @RequestMapping(value = "/msgSave")
     public String msgSave(HttpServletRequest request, MsgVO msgInfo) {
         String userno = request.getSession().getAttribute("userno").toString();
@@ -184,10 +167,11 @@ public class MsgCtr {
 
         return "redirect:/msgList?bgno=" + msgInfo.getBgno();
     }
-
-    /**
+*/
+    /*
+    *//**
      * 글 읽기.
-     */
+     *//*
     @RequestMapping(value = "/msgRead")
     public String msgRead(HttpServletRequest request, ModelMap modelMap) {
     	String userno = request.getSession().getAttribute("userno").toString();
@@ -218,9 +202,9 @@ public class MsgCtr {
         return "msg/MsgRead";
     }
     
-    /**
+    *//**
      * 글 삭제.
-     */
+     *//*
     @RequestMapping(value = "/msgDelete")
     public String msgDelete(HttpServletRequest request) {
         String brdno = request.getParameter("brdno");
@@ -239,7 +223,7 @@ public class MsgCtr {
         
         return "redirect:/msgList?bgno=" + bgno;
     }
-
+*/
     /**
      * 게시판 트리. Ajax용.     
      */

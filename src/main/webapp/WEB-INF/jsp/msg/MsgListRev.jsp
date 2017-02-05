@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="">			
     <meta name="author" content="">
 
     <title><s:message code="common.pageTitle"/></title>
@@ -108,34 +108,34 @@ function TreenodeActivate(node) {
             </div>
             <!-- /.row -->
             <div class="panel panel-default">
-            	<div class="panel-body">
-					<div class="listHead">
-						<div class="listHiddenField pull-left field60"><s:message code="send.msg.no"/></div>
-						<div class="listHiddenField pull-right field60"><s:message code="send.msg.file"/></div>
-						<div class="listHiddenField pull-right field100"><s:message code="send.msg.date"/></div>
-						<div class="listHiddenField pull-right field100"><s:message code="send.msg.senduser"/></div>
-						<div class="listTitle"><s:message code="send.msg.cont"/></div>
-					</div>
-					<c:forEach var="listview" items="${noticelist}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
-						<c:set var="listitemNo" value="" />	
-						<jsp:include page="MsgListAllSub.jsp" >
-							<jsp:param name="listitemNo" value="${listitemNo}" />
-							<jsp:param name="listitem" value="${listitem}" />
-						</jsp:include>
-					</c:forEach>					
+            					
 					<c:if test="${listview.size()==0}">
 						<div class="listBody height200">
 						</div>
 					</c:if>					
 					<c:forEach var="listview" items="${listview}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
-						<c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request" />	
-						<jsp:include page="MsgListAllSub.jsp" >
-							<jsp:param name="listitemNo" value="${listitemNo}" />
-							<jsp:param name="listitem" value="${listitem}" />
-						</jsp:include>
+						<div class="listHead">
+							<div class="listHiddenField pull-left field60"><s:message code="send.msg.no"/></div>
+							<div class="listHiddenField pull-right field60"><s:message code="send.msg.file"/></div>
+							<div class="listHiddenField pull-right field100"><s:message code="send.msg.date"/></div>
+							<div class="listHiddenField pull-right field100"><s:message code="send.msg.senduser"/></div>
+							<div class="listTitle"><s:message code="send.msg.cont"/></div>
+						</div>
+						<div class="listBody">
+							<div class="listHiddenField pull-left field60"><c:out value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/></div>
+							<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.sendate}"/></div>
+							<div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listview.userno}"/>"><c:out value="${listview.senuser}"/></a></div>
+							<div class="listTitle" title="<c:out value="${listview.msgcontent}"/>">
+								<a href="${link}" ><c:out value="${listview.msgcontent}"/></a>							
+							</div>
+							<!-- 작은창 -->
+							<div class="showField text-muted small">
+								<c:out value="${listview.senuser}"/>
+								<c:out value="${listview.sendate}"/>
+							</div>
+						</div>
 					</c:forEach>	
+					
 					<br/>
 					<form role="form" id="form1" name="form1"  method="post">
 					    <jsp:include page="../common/pagingforSubmit.jsp" />

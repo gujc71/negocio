@@ -24,9 +24,8 @@
 
     <select id="selectMsgCount" resultType="Integer" parameterType="gu.msg.MsgSearchVO">
         SELECT COUNT(*)
-          FROM TBL_BOARD TB
-         INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=TB.BGNO
-         INNER JOIN COM_USER CU ON TB.USERNO=CU.USERNO
+          FROM MESSAGE MS
+          INNER JOIN COM_USER CU ON MS.SENUSER=CU.USERNO
          <include refid="includeMsg"/>
     </select> 
     
@@ -34,7 +33,7 @@
         SELECT MSGNO, MSGCONTENTS, DATE_FORMAT(SENDATE,'%Y-%m-%d') SENDATE
              , MS.SENUSER, FILEYN
           FROM MESSAGE MS
-         INNER JOIN COM_USER CU ON MS.SENUSER=CU.USERID
+         INNER JOIN COM_USER CU ON MS.SENUSER=CU.USERNO
          ORDER BY MSGNO DESC 
          <if test="rowStart != null">
              LIMIT ${rowStart-1}, 10
