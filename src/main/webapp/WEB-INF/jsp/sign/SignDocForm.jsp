@@ -33,16 +33,16 @@
 
 <script>
 window.onload =function() {
-	CKEDITOR.replace( 'frmcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
+	CKEDITOR.replace( 'sdcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
 }	  
 
 function fn_formSubmit(sdstate){
-	CKEDITOR.instances["frmcontents"].updateElement();
+	CKEDITOR.instances["sdcontents"].updateElement();
 	
-	if ( ! chkInputValue("#frmname", "제목")) return false;
-	if ( ! chkInputValue("#frmcontents", "내용")) return false;
+	if ( ! chkInputValue("#sdtitle", "제목")) return false;
+	if ( ! chkInputValue("#sdcontents", "내용")) return false;
 	
-	$("#sdstate").text(sdstate);
+	$("#sdstate").val(sdstate);
 	$("#form1").submit();
 }
 </script>
@@ -71,31 +71,30 @@ function fn_formSubmit(sdstate){
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1"><s:message code="board.title"/></label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmname" name="frmname" size="70" maxlength="250" value="<c:out value="${signFormInfo.frmname}"/>">
+	                            	<input type="text" class="form-control" id="sdtitle" name="sdtitle" size="70" maxlength="250" value="<c:out value="${signDocInfo.sdtitle}"/>">
 	                            </div>
 	                        </div>
 	                        <div class="row form-group">
 	                            <label class="col-lg-1">참조</label>
 	                            <div class="col-lg-9">
-	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="<c:out value="${signFormInfo.frmdesc}"/>">
+	                            	<input type="text" class="form-control" id="frmdesc" name="frmdesc" size="70" maxlength="250" value="">
 	                            </div>
 	                        </div>
 	                    	<div class="row form-group">
 	                            <label class="col-lg-1">문서</label>
 	                            <div class="col-lg-9">
-	                            	<textarea id="brdmemo" class="form-control" name="frmcontents" rows="10" cols="60"><c:out value="${signFormInfo.frmcontents}"/></textarea>
+	                            	<textarea id="sdcontents" class="form-control" name="sdcontents" rows="10" cols="60"><c:out value="${signDocInfo.sdcontents}"/></textarea>
 	                            </div>
 	                        </div>         
 	                    	 
 	                    </div>
 	                </div>
-					<input type="hidden" name="frmno" value="<c:out value="${signFormInfo.frmno}"/>"> 
+					<input type="hidden" name="frmno" value="<c:out value="${signDocInfo.frmno}"/>"> 
 					<input type="hidden" name="sdno" value="<c:out value="${signDocInfo.sdno}"/>"> 
 					<input type="hidden" name="sdstate" id="sdstate" value="<c:out value="${signDocInfo.sdstate}"/>"> 
 				</form>
 			        <button class="btn btn-outline btn-primary" onclick="fn_formSubmit('2')" ><s:message code="common.btnSave"/></button>
 			        <button class="btn btn-outline btn-primary" onclick="fn_formSubmit('1')">임시저장</button>
-	                <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >수정</button>
 			        <button class="btn btn-outline btn-primary" onclick="fn_moveToURL('signFormList')" >취소</button>
                 
             </div>

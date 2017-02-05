@@ -13,7 +13,7 @@
 	
 	<!-- 기안문서에 들어갈 새문서 -->
 	
-	<select id="selectSignFormOne" parameterType="gu.sign.SignFormVO" resultType="gu.sign.SignFormVO">
+	<select id="selectSignFormOne" parameterType="String" resultType="gu.sign.SignFormVO">
 		SELECT FRMNO, FRMNAME, FRMDESC, FRMCONTENTS
 		FROM SGN_FORM
 		WHERE FRMNO = #{frmno}
@@ -23,9 +23,14 @@
 	
 	<insert id="insertSignDoc" parameterType="gu.sign.SignDocVO">
 		INSERT INTO SGN_DOC (SDTITLE, SDCONTENTS, SDDATE, SDMODDATE, DELETEFLAG, SDSTATE, USERNO, FRMNO)
-		VALUES ( #{sdtitle}, #{sdcontents}, NOW(), NOW(), #{deleteflag}, #{sdstate}, #{userno}, #{frmno})
+		VALUES ( #{sdtitle}, #{sdcontents}, NOW(), NOW(), 'N', #{sdstate}, #{userno}, #{frmno})
 	</insert>
 
+	<update id="updateSignDoc" parameterType="gu.sign.SignDocVO">
+        UPDATE SGN_DOC
+        SET SDTITLE=#{sdtitle}, SDCONTENTS=#{sdcontents}, SDSTATE=#{sdstate}
+        WHERE SDNO=#{sdno}
+    </update>
 
 	<!-- 기안문서 임시저장 리스트 -->
 	
@@ -35,6 +40,24 @@
 		INNER JOIN SGN_FORM SF ON SD.FRMNO = SF.FRMNO
 		WHERE SD.DELETEFLAG = 'N'
 		AND	  SDSTATE = '1';
+	</select>
+	
+	<!-- 결재받을문서 리스트. -->
+	
+	<select id="selectSignDocGetList" resultType="gu.sign.SignDocVO">
+		SELECT SD.SDNO, SD.SDTITLE, SF.FRMNAME, SD.SDDATE, SD.SDSTATE
+		FROM SGN_DOC SD
+		INNER JOIN SGN_FORM SF ON SD.FRMNO = SF.FRMNO
+		WHERE SD.DELETEFLAG = 'N'
+		AND	  SDSTATE = '2';
+	</select>
+	
+	<!-- 임시저장리스트 >> 기안문서  -->
+	
+	<select id="selectSignDocOne" parameterType="gu.sign.SignDocVO" resultType="gu.sign.SignDocVO">
+		SELECT SDNO, SDTITLE, SDCONTENTS
+		FROM SGN_DOC
+		WHERE SDNO = #{sdno}
 	</select>
 	
 	<!-- 기안문서 임시저장 문서 

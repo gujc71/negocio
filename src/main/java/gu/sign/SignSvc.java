@@ -6,12 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionException;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import gu.admin.sign.AdSgnFormSvc;
 
@@ -20,8 +15,6 @@ public class SignSvc {
 
     @Autowired
     private SqlSessionTemplate sqlSession;
-    @Autowired
-    private DataSourceTransactionManager txManager;
     
     static final Logger LOGGER = LoggerFactory.getLogger(AdSgnFormSvc.class);
     
@@ -35,7 +28,7 @@ public class SignSvc {
     /**
      * 기안문서에 들어갈 새문서.
      */
-    public SignFormVO selectSignFormOne(SignFormVO param) {
+    public SignFormVO selectSignFormOne(String param) {
         return sqlSession.selectOne("selectSignFormOne", param);
     }
     
@@ -43,20 +36,11 @@ public class SignSvc {
      * 기안문서 저장 및 임시저장.
      */
     public void insertSignDoc(SignDocVO param) {
-    	DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    	def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-    	TransactionStatus status = txManager.getTransaction(def);
-    	try {
-    		if(param.getSdstate() == null || "".equals(param.getSdstate())) {
+    		if(param.getSdno() == null || "".equals(param.getSdno())) {
     			sqlSession.insert("insertSignDoc", param);
     		} else {
     			sqlSession.update("updateSignDoc", param);        	
     		}
-			txManager.commit(status);
-		} catch (TransactionException ex) {
-			txManager.rollback(status);
-			LOGGER.error("insertSignDoc");
-		}
     }
     
     /**
@@ -64,6 +48,20 @@ public class SignSvc {
      */
     public List<?> selectSignDocTempList() {
         return sqlSession.selectList("selectSignDocTempList");
+    }
+    
+    /**
+     * 임시저장리스트 >> 기안문서
+     */
+    public SignDocVO selectSignDocOne(SignDocVO param) {
+        return sqlSession.selectOne("selectSignDocOne", param);
+    }
+    
+    /**
+     * 결재받을문서리스트.
+     */
+    public List<?> selectSignDocGetList() {
+        return sqlSession.selectList("selectSignDocGetList");
     }
     
     /**

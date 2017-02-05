@@ -67,19 +67,19 @@
 	                       		                    
 	                        <div class="listBody">
 		                        <div class="listHiddenField pull-left field60">
-									<c:out value="${listview.frmno}"/>
+									<c:out value="${listview.sdno}"/>
 								</div>
 								<div class="listHiddenField pull-right field100">
-									<c:out value="${listview.frmdesc}"/>										
+									<c:out value="${listview.sdstate}"/>										
 								</div>
 								<div class="listHiddenField pull-right field100">
-									<c:out value="${listview.frmdesc}"/>										
+									<c:out value="${listview.sddate}"/>										
 								</div>
 								<div class="listHiddenField pull-right field100">
-									<c:out value="${listview.frmdesc}"/>										
+									<c:out value="${listview.frmname}"/>										
 								</div>
 								<div class="listTitle">
-									<a href="signDocGet?frmno=<c:out value="${listview.frmno}"/>" ><c:out value="${listview.frmname}"/></a>
+									<a href="signDocForm?sdno=<c:out value="${listview.sdno}"/>" ><c:out value="${listview.sdtitle}"/></a>
 								</div>
 	                        </div>
 	                    
