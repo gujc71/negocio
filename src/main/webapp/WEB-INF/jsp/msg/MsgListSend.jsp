@@ -41,36 +41,6 @@ function fn_formSubmit(){
 	document.form1.submit();	
 }
 
-function showBoardList(ev){
-	if( $('#boardlistDiv').is(':visible') ) {
-		$("#boardlistDiv").hide();
-		return;
-	}
-	var pos = $( "#boardlistBtn" ).position();
-	$("#boardlistDiv").css({
-		   "top" : parseInt(pos.top)+30 + "px",
-		   "left" : pos.left
-	}).show();
-	
-	var node = $("#tree").dynatree("getRoot");
-	
-	if (node.childList) return;
-	
-	$.ajax({
-		url: "boardListByAjax",
-		type:"post", 
-		dataType: "json",
-		success: function(result){
-			$("#tree").dynatree({children: result});
-		    $("#tree").dynatree("getTree").reload();
-		    $("#tree").dynatree("getRoot").visit(function(node){
-		        node.expand(true);
-		    });
-		}
-	})	
-	
-}
-
 $(function(){
 	$("#tree").dynatree({
 		onActivate: TreenodeActivate
@@ -111,33 +81,46 @@ function TreenodeActivate(node) {
             	<div class="panel-body">
 					<div class="listHead">
 						<div class="listHiddenField pull-left field60"><s:message code="send.msg.no"/></div>
-						<%-- <div class="listHiddenField pull-right field100"><s:message code="send.msg.locate"/></div> --%>
 						<div class="listHiddenField pull-right field60"><s:message code="send.msg.file"/></div>
-						<%-- <div class="listHiddenField pull-right field60"><s:message code="board.hitCount"/></div> --%>
 						<div class="listHiddenField pull-right field100"><s:message code="send.msg.date"/></div>
 						<div class="listHiddenField pull-right field100"><s:message code="send.msg.revuser"/></div>
 						<div class="listTitle"><s:message code="send.msg.cont"/></div>
 					</div>
-					<c:forEach var="listview" items="${noticelist}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
-						<c:set var="listitemNo" value="" />	
-						<jsp:include page="MsgListAllSub.jsp" >
-							<jsp:param name="listitemNo" value="${listitemNo}" />
-							<jsp:param name="listitem" value="${listitem}" />
-						</jsp:include>
-					</c:forEach>					
 					<c:if test="${listview.size()==0}">
 						<div class="listBody height200">
 						</div>
 					</c:if>					
 					<c:forEach var="listview" items="${listview}" varStatus="status">
-						<c:set var="listitem" value="${listview}" scope="request" />	
-						<c:set var="listitemNo" value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" scope="request" />	
-						<jsp:include page="MsgListAllSub.jsp" >
-							<jsp:param name="listitemNo" value="${listitemNo}" />
-							<jsp:param name="listitem" value="${listitem}" />
-						</jsp:include>
+						<c:url var="link" value="msgRead">
+							<c:param name="msgno" value="${listview.msgno}" />
+						</c:url>
+						<div class="listBody">
+							<div class="listHiddenField pull-left field60">
+								<c:out value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}"/>
+							</div>
+									
+							<div class="listHiddenField pull-right field60">
+								<c:if test="${listview.filecnt>0}">
+									<i class="fa fa-download fa-fw" title="<c:out value="${listview.filecnt}"/>"></i>
+								</c:if>
+							</div>
+							<div class="listHiddenField pull-right field100 textCenter"><c:out value="${listview.msgdate}"/></div>
+							<div class="listHiddenField pull-right field100 textCenter"><a href="list4User?userno=<c:out value="${listview.userno}"/>"><c:out value="${listview.msgwriter}"/></a></div>
+							<div class="listTitle" title="<c:out value="${listview.msgtitle}"/>">
+								<a href="${link}" <c:if test="${listview.msgnotice=='Y'}">class="notice"</c:if>><c:out value="${listview.msgtitle}"/></a>							
+							</div>
+							<!-- 작은창 -->
+							<div class="showField text-muted small">
+								<c:out value="${listview.msgwriter}"/> 
+								<c:out value="${listview.msgdate}"/>
+								<c:if test="${listview.filecnt>0}">
+									<i class="fa fa-download fa-fw" title="<c:out value="${listview.filecnt}"/>"></i>
+								</c:if>
+							</div>
+						</div>
+							
 					</c:forEach>	
+					
 					<br/>
 					<form role="form" id="form1" name="form1"  method="post">
 					    <jsp:include page="../common/pagingforSubmit.jsp" />
@@ -148,10 +131,6 @@ function TreenodeActivate(node) {
 		                        	<input type="checkbox" name="searchType" value="brdmemo" <c:if test="${fn:indexOf(searchVO.searchType, 'brdmemo')!=-1}">checked="checked"</c:if>/>
 		                        	<s:message code="board.contents"/>
 		                        </label>
-							 	<%-- <label class="pull-right">
-		                        	<input type="checkbox" name="searchType" value="brdtitle" <c:if test="${fn:indexOf(searchVO.searchType, 'brdtitle')!=-1}">checked="checked"</c:if>/>
-		                        	<s:message code="board.title"/>
-		                        </label> --%>
 							 	<label class="pull-right">
 							 		<input type="checkbox" name="searchType" value="usernm" <c:if test="${fn:indexOf(searchVO.searchType, 'usernm')!=-1}">checked="checked"</c:if>/>
 		                        	<s:message code="board.writer"/>

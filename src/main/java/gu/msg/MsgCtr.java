@@ -1,9 +1,7 @@
 package gu.msg;
 
-import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import gu.admin.board.BoardGroupVO;
-import gu.board.BoardSvc;
-import gu.board.BoardVO;
 import gu.common.Field3VO;
-import gu.common.FileUtil;
-import gu.common.FileVO;
-import gu.common.TreeMaker;
-import gu.common.UtilEtc;
 import gu.etc.EtcSvc;
 
 @Controller 
@@ -35,42 +26,8 @@ public class MsgCtr {
     static final Logger LOGGER = LoggerFactory.getLogger(MsgCtr.class);
     
     /**
-     * 리스트.
+     * 받은쪽지.
      */
-    @RequestMapping(value = "/msgList")
-    public String msgList(HttpServletRequest request, MsgSearchVO searchVO, ModelMap modelMap) {
-    	String globalKeyword = request.getParameter("globalKeyword");  // it's search from left side bar
-        if (globalKeyword!=null & !"".equals(globalKeyword)) {
-            searchVO.setSearchKeyword(globalKeyword);
-        }
-        
-        String userno = request.getSession().getAttribute("userno").toString();
-        
-        Integer alertcount = etcSvc.selectAlertCount(userno);
-        modelMap.addAttribute("alertcount", alertcount);
-        
-        if (searchVO.getBgno() != null && !"".equals(searchVO.getBgno())) {
-            BoardGroupVO bgInfo = msgSvc.selectBoardGroupOne4Used(searchVO.getBgno());
-            if (bgInfo == null) { 
-                return "board/BoardGroupFail";
-            }
-            modelMap.addAttribute("bgInfo", bgInfo);
-        }
-        
-        List<?> noticelist  = msgSvc.selectNoticeList(searchVO);
-
-        searchVO.pageCalculate( msgSvc.selectmsgCount(searchVO) ); // startRow, endRow
-        List<?> listview  = msgSvc.selectmsgList(searchVO);
-        
-        modelMap.addAttribute("searchVO", searchVO);
-        modelMap.addAttribute("listview", listview);
-        modelMap.addAttribute("noticelist", noticelist);
-        
-        if (searchVO.getBgno() == null || "".equals(searchVO.getBgno())) {
-            return "msg/MsgListAll";
-        }
-        return "msg/MsgListAll";
-    }
     @RequestMapping(value = "/msgListRev")
     public String msgList1(HttpServletRequest request, MsgSearchVO searchVO, ModelMap modelMap) {
         String userno = request.getSession().getAttribute("userno").toString();
@@ -88,40 +45,26 @@ public class MsgCtr {
         return "msg/MsgListRev";
     }
     
+    /**
+     * 보낸쪽지.
+     */
     @RequestMapping(value = "/msgListSend")
     public String msgList2(HttpServletRequest request, MsgSearchVO searchVO, ModelMap modelMap) {
-    	String globalKeyword = request.getParameter("globalKeyword");  // it's search from left side bar
-        if (globalKeyword!=null & !"".equals(globalKeyword)) {
-            searchVO.setSearchKeyword(globalKeyword);
-        }
-        
         String userno = request.getSession().getAttribute("userno").toString();
         
         Integer alertcount = etcSvc.selectAlertCount(userno);
         modelMap.addAttribute("alertcount", alertcount);
+        ////////////////////////////////////////////////////////
         
-        if (searchVO.getBgno() != null && !"".equals(searchVO.getBgno())) {
-            BoardGroupVO bgInfo = msgSvc.selectBoardGroupOne4Used(searchVO.getBgno());
-            if (bgInfo == null) { 
-                return "board/BoardGroupFail";
-            }
-            modelMap.addAttribute("bgInfo", bgInfo);
-        }
-        
-        List<?> noticelist  = msgSvc.selectNoticeList(searchVO);
-
         searchVO.pageCalculate( msgSvc.selectmsgCount(searchVO) ); // startRow, endRow
         List<?> listview  = msgSvc.selectmsgList(searchVO);
         
         modelMap.addAttribute("searchVO", searchVO);
         modelMap.addAttribute("listview", listview);
-        modelMap.addAttribute("noticelist", noticelist);
         
-        if (searchVO.getBgno() == null || "".equals(searchVO.getBgno())) {
-            return "msg/MsgListSend";
-        }
         return "msg/MsgListSend";
     }
+    
     /** 
      * 글 쓰기. 
      */
