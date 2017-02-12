@@ -102,6 +102,9 @@
                                 </li>
 	                        </ul>                            
                         </li>
+                        <li>
+                            <a href="scheduleDay"><i class="fa fa-music fa-fw"></i> 스케쥴</a>                          
+                        </li>
                         <c:if test='${sessionScope.userrole == "A"}'>
 	                        <li>
 	                            <a href="#"><i class="fa fa-gear fa-fw"></i> <s:message code="memu.admin"/></a>

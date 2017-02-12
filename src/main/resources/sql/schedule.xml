@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="schedule">
+
+    <select id="selectScheduleGroupCount4Statistic" resultType="gu.common.CountVO" >
+        SELECT BGNAME FIELD1, CNT CNT1
+          FROM (
+                SELECT SCHNO, COUNT(*) CNT
+                  FROM TBL_SCHEDULE TB
+                 WHERE BRDDELETEFLAG='N' 
+                 GROUP BY SCHNO
+        ) DS
+        INNER JOIN TBL_SCHEDULEGROUP TBG
+        WHERE TBG.SCHNO=DS.SCHNO AND BGDELETEFLAG='N' 
+    </select> 
+    
+    <sql id="includeSchedule">
+        WHERE BRDDELETEFLAG='N' AND TBG.BGDELETEFLAG='N'
+        <if test="schno!=null and schno!=''">
+            AND TB.SCHNO=#{schno}
+        </if>  
+        <if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
+            <foreach item="item" index="index" collection="searchTypeArr" separator=" OR " open="AND (" close=")">
+                 ${item} LIKE CONCAT('%', #{searchKeyword},'%' )
+            </foreach>
+        </if>               
+    </sql>
+    
+    <select id="selectScheduleCount" resultType="Integer" parameterType="gu.schedule.ScheduleSearchVO">
+        SELECT COUNT(*)
+          FROM TBL_SCHEDULE TB
+         INNER JOIN TBL_SCHEDULEGROUP TBG ON TBG.SCHNO=TB.SCHNO
+         INNER JOIN COM_USER CU ON TB.USERNO=CU.USERNO
+         <include refid="includeSchedule"/>
+    </select> 
+    
+    <select id="selectScheduleList" resultType="gu.schedule.ScheduleVO" parameterType="gu.schedule.ScheduleSearchVO">
+        SELECT SCHNO, DATE_FORMAT(SCHSTDT,'%Y-%m-%d') SCHSTDT
+        , DATE_FORMAT(SCHSTDT,'%Y-%m-%d') SCHEDDT
+        , DATE_FORMAT(SCHEDDT,'%Y-%m-%d') SCHEDDT
+        , DATE_FORMAT(SCHSTTM, '%H:%i') SCHSTTM
+        , DATE_FORMAT(SCHEDTM, '%H:%i') SCHEDTM
+        , SCHCONT
+        , SCHTITLE
+          FROM TBL_SCHEDULE
+         ORDER BY SCHNO DESC 
+    </select> 
+    
+    <select id="selectScheduleOne" parameterType="gu.common.Field3VO" resultType="gu.schedule.ScheduleVO">
+        SELECT SCHNO, DATE_FORMAT(SCHSTDT,'%Y-%m-%d') SCHSTDT, SCHCONT, SCHTITLE        
+          FROM TBL_SCHEDULE
+         ORDER BY SCHNO DESC 
+    </select> 
+</mapper>
+
