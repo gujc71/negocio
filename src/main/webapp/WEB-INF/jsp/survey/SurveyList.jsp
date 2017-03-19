@@ -17,7 +17,6 @@
     <link href="css/sb-admin/metisMenu.min.css" rel="stylesheet">
     <link href="css/sb-admin/sb-admin-2.css" rel="stylesheet">
     <link href="css/sb-admin/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="js/dynatree/ui.dynatree.css" rel="stylesheet" id="skinSheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +27,6 @@
 
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="js/dynatree/jquery.dynatree.js"></script>    
     <script src="css/sb-admin/bootstrap.min.js"></script>
     <script src="css/sb-admin/metisMenu.min.js"></script>
     <script src="css/sb-admin/sb-admin-2.js"></script>
@@ -40,49 +38,6 @@ function fn_formSubmit(){
     document.form1.submit();    
 }
 
-function showBoardList(ev){
-    if( $('#boardlistDiv').is(':visible') ) {
-        $("#boardlistDiv").hide();
-        return;
-    }
-    var pos = $( "#boardlistBtn" ).position();
-    $("#boardlistDiv").css({
-           "top" : parseInt(pos.top)+30 + "px",
-           "left" : pos.left
-    }).show();
-    
-    var node = $("#tree").dynatree("getRoot");
-    
-    if (node.childList) return;
-    
-    $.ajax({
-        url: "boardListByAjax",
-        type:"post", 
-        dataType: "json",
-        success: function(result){
-            $("#tree").dynatree({children: result});
-            $("#tree").dynatree("getTree").reload();
-            $("#tree").dynatree("getRoot").visit(function(node){
-                node.expand(true);
-            });
-        }
-    })    
-    
-}
-
-$(function(){
-    $("#tree").dynatree({
-        onActivate: TreenodeActivate
-    });
-});
-
-function TreenodeActivate(node) {
-    location.href = "boardList?bgno=" + node.data.key;
-}
-
-function surveyNew(){
-	alert("new");
-}
 
 </script>
     

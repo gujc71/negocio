@@ -4,7 +4,7 @@
 <mapper namespace="survey">
 
 	<sql id="includeSurvey">
-		WHERE TBG.BGDELETEFLAG='N'
+		WHERE 1=1
 		<if test="bgno!=null and bgno!=''">
 			AND SU.BGNO=#{bgno}
 		</if>
@@ -20,35 +20,22 @@
 	<select id="selectSurveyCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM SUR_SURVEY SU
-		INNER JOIN TBL_BOARDGROUP TBG ON
-		TBG.BGNO=SU.BGNO
 		INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
 		<include refid="includeSurvey" />
 	</select>
 
-	<select id="selectSurveyList" resultType="gu.survey.SurveyVO"
-		parameterType="gu.board.BoardSearchVO">
-		SELECT SURNO
-		,SURTITLE
-		,(SELECT COUNT(*) FROM SUR_QUESTION WHERE
-		SURNO=SU.SURNO) QUESTIONCOUNT
-		, CONCAT(SURSTARTDATE,' ~ ',SURENDDATE)
-		SURPERIOD
-		, SURDATE
-		, (SELECT USERNM FROM COM_USER WHERE
-		USERNO=SU.USERNO)USERNM
-		, SURSTATE
-		FROM SUR_SURVEY SU
-		INNER JOIN COM_USER
-		CU ON
-		SU.USERNO=CU.USERNO
-		INNER JOIN TBL_BOARDGROUP TBG ON
-		TBG.BGNO=SU.BGNO
+	<select id="selectSurveyList" resultType="gu.survey.SurveyVO" parameterType="gu.board.BoardSearchVO">
+		SELECT SURNO,SURTITLE
+			 , (SELECT COUNT(*) FROM SUR_QUESTION WHERE SURNO=SU.SURNO) QUESTIONCOUNT
+			 , CONCAT(SURSTARTDATE,' ~ ',SURENDDATE) SURPERIOD
+			 , SURDATE
+			 , (SELECT USERNM FROM COM_USER WHERE USERNO=SU.USERNO)USERNM
+			 , SURSTATE
+		 FROM SUR_SURVEY SU
+		INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
 		<include refid="includeSurvey" />
 		ORDER BY SURNO DESC
-		<if test="rowStart != null">
-			LIMIT ${rowStart-1}, 10
-		</if>
+		LIMIT ${rowStart-1}, 10
 	</select>
 
 	<insert id="insertSurvey" parameterType="gu.survey.SurveyVO">

@@ -11,12 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import gu.admin.board.BoardGroupVO;
 import gu.board.BoardSearchVO;
-import gu.board.BoardSvc;
-import gu.board.BoardVO;
-import gu.common.FileUtil;
-import gu.common.FileVO;
 import gu.common.Util4calen;
 import gu.etc.EtcSvc;
 
@@ -30,9 +25,6 @@ public class SurveyCtr {
     
     @Autowired
     private SurveySvc surveySvc;
-    
-    @Autowired
-    private BoardSvc boardSvc;
     
     /**
      * 리스트.
@@ -63,7 +55,6 @@ public class SurveyCtr {
         // -----------------------------------------
     	
         String surno = request.getParameter("surno");
-//        System.out.println("++ "+surno);
         
         SurveyVO surveyVO = surveySvc.getSurvey(surno);
         modelMap.addAttribute("result",surveyVO);
@@ -80,10 +71,6 @@ public class SurveyCtr {
          String surno = request.getParameter("surno");
          String today = Util4calen.date2Str(Util4calen.getToday());
          
-         if(surno != null){	// 글수정시
-        	 
-         }
-         
          modelMap.addAttribute("surno",surno);
          modelMap.addAttribute("today", today);
          
@@ -98,21 +85,8 @@ public class SurveyCtr {
         String userno = request.getSession().getAttribute("userno").toString();
         surveyInfo.setUserno(userno);
 
-//        if (surveyInfo.getBrdno() != null && !"".equals(surveyInfo.getBrdno())) {    // check auth for update
-//            String chk = boardSvc.selectBoardAuthChk(surveyInfo);
-//            if (chk == null) {
-//                return "common/noAuth";
-//            }
-//        }
-        
-//        String[] fileno = request.getParameterValues("fileno");
-//        FileUtil fs = new FileUtil();
-//        List<FileVO> filelist = fs.saveAllFiles(surveyInfo.getUploadfile());
-
         surveySvc.insertSurvey(surveyInfo);
         
-//        System.out.println("** "+surveyInfo.toString());
-
         return "redirect:/surveyList?bgno=" + surveyInfo.getBgno();
     }
 }

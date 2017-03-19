@@ -18,7 +18,6 @@
     <link href="css/sb-admin/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="js/datepicker/datepicker.css" rel="stylesheet" type="text/css">
 	<link href="js/dynatree/ui.dynatree.css" rel="stylesheet"/>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,7 +29,6 @@
     <script src="css/sb-admin/bootstrap.min.js"></script>
     <script src="css/sb-admin/metisMenu.min.js"></script>
     <script src="css/sb-admin/sb-admin-2.js"></script>
-	<script src="js/ckeditor/ckeditor.js"></script>
 	<script src="js/datepicker/bootstrap-datepicker.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/dynatree/jquery.dynatree.js"></script>
@@ -38,8 +36,6 @@
 
 <script>
 window.onload =function() {
-	  //CKEDITOR.replace( 'surcontents', { 'filebrowserUploadUrl': 'upload4ckeditor'});
-	  
 	  $('#term1').datepicker().on('changeDate', function(ev) {
 			if (ev.viewMode=="days"){
 				$('#term1').datepicker('hide');
@@ -53,8 +49,6 @@ window.onload =function() {
 }	  
 
 function fn_formSubmit(){
-	CKEDITOR.instances["surcontents"].updateElement();
-	
 	if ( ! chkInputValue("#surtitle", "<s:message code="survey.title"/>")) return false;
 	if ( ! chkInputValue("#surcontents", "<s:message code="survey.contents"/>")) return false;
 	
@@ -79,7 +73,6 @@ function deptTreeActivate(node) {
     $("#deptnm").val(node.data.title);
 	$("#popupDept").modal("hide");
 }
-
 </script>
     
 </head>
