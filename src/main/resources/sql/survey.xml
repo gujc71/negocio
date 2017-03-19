@@ -4,42 +4,97 @@
 <mapper namespace="survey">
 
 	<sql id="includeSurvey">
-        WHERE TBG.BGDELETEFLAG='N'
-        <if test="bgno!=null and bgno!=''">
-            AND SU.BGNO=#{bgno}
-        </if>  
-        <if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
-            <foreach item="item" index="index" collection="searchTypeArr" separator=" OR " open="AND (" close=")">
-                 ${item} LIKE CONCAT('%', #{searchKeyword},'%' )
-            </foreach>
-        </if>               
-    </sql>
-	
+		WHERE TBG.BGDELETEFLAG='N'
+		<if test="bgno!=null and bgno!=''">
+			AND SU.BGNO=#{bgno}
+		</if>
+		<if test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
+			<foreach item="item" index="index" collection="searchTypeArr"
+				separator=" OR " open="AND (" close=")">
+				${item} LIKE CONCAT('%',
+				#{searchKeyword},'%' )
+			</foreach>
+		</if>
+	</sql>
+
 	<select id="selectSurveyCount" resultType="Integer">
-        SELECT COUNT(*)
-          FROM SUR_SURVEY SU
-         INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=SU.BGNO
-         INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
-         <include refid="includeSurvey"/>
-    </select> 
-    
-    <select id="selectSurveyList" resultType="gu.survey.SurveyVO" parameterType="gu.board.BoardSearchVO">
-    	SELECT SURNO
-    			,SURTITLE
-    			,(SELECT COUNT(*) FROM SUR_QUESTION WHERE SURNO=SU.SURNO) QUESTIONCOUNT
-    			, CONCAT(SURSTARTDATE,' ~ ',SURENDDATE) SURPERIOD
-    			, SURDATE
-    			, (SELECT USERNM FROM COM_USER WHERE USERNO=SU.USERNO)USERNM
-    			, SURSTATE
+		SELECT COUNT(*)
 		FROM SUR_SURVEY SU
+		INNER JOIN TBL_BOARDGROUP TBG ON
+		TBG.BGNO=SU.BGNO
 		INNER JOIN COM_USER CU ON SU.USERNO=CU.USERNO
-		INNER JOIN TBL_BOARDGROUP TBG ON TBG.BGNO=SU.BGNO
-		<include refid="includeSurvey"/>
-		 ORDER BY SURNO DESC 
-         <if test="rowStart != null">
-             LIMIT ${rowStart-1}, 10
-         </if>
-    </select>
-    
+		<include refid="includeSurvey" />
+	</select>
+
+	<select id="selectSurveyList" resultType="gu.survey.SurveyVO"
+		parameterType="gu.board.BoardSearchVO">
+		SELECT SURNO
+		,SURTITLE
+		,(SELECT COUNT(*) FROM SUR_QUESTION WHERE
+		SURNO=SU.SURNO) QUESTIONCOUNT
+		, CONCAT(SURSTARTDATE,' ~ ',SURENDDATE)
+		SURPERIOD
+		, SURDATE
+		, (SELECT USERNM FROM COM_USER WHERE
+		USERNO=SU.USERNO)USERNM
+		, SURSTATE
+		FROM SUR_SURVEY SU
+		INNER JOIN COM_USER
+		CU ON
+		SU.USERNO=CU.USERNO
+		INNER JOIN TBL_BOARDGROUP TBG ON
+		TBG.BGNO=SU.BGNO
+		<include refid="includeSurvey" />
+		ORDER BY SURNO DESC
+		<if test="rowStart != null">
+			LIMIT ${rowStart-1}, 10
+		</if>
+	</select>
+
+	<insert id="insertSurvey" parameterType="gu.survey.SurveyVO">
+		<selectKey resultType="String" keyProperty="surno" order="BEFORE">
+			SELECT IFNULL(MAX(surno),0)+1 FROM sur_survey
+		</selectKey>
+		INSERT INTO sur_survey
+		(`BGNO`,
+		`SURNO`,
+		`SURTITLE`,
+		`SURDATE`,
+		`SURSTARTDATE`,
+		`SURENDDATE`,
+		`SURRESPONSOR`,
+		`SURCONTENTS`,
+		`SURSTATE`,
+		`USERNO`)
+		VALUES
+		('4',
+		#{surno},
+		#{surtitle},
+		now(),
+		#{surstartdate},
+		#{surenddate},
+		(select deptno from com_dept where
+		deptnm=#{surresponsor}),
+		#{surcontents},
+		'1',
+		#{userno});
+	</insert>
+
+	<select id="getSurvey" parameterType="String" resultType="gu.survey.SurveyVO">
+		SELECT
+		BGNO,
+		SURNO,
+		SURTITLE,
+		SURDATE,
+		SURSTARTDATE,
+		SURENDDATE,
+		SURRESPONSOR,
+		SURCONTENTS,
+		SURSTATE,
+		USERNO,
+		(SELECT USERNM FROM COM_USER WHERE USERNO=#{userno}) AS USERNM
+		FROM SUR_SURVEY WHERE SURNO = #{surno};
+	</select>
+
 </mapper>
 

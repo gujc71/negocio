@@ -29,4 +29,13 @@ public class SurveySvc {
     public List<?> selectSurveyList(BoardSearchVO param) {
         return sqlSession.selectList("selectSurveyList", param);
     }
+    
+    public void insertSurvey(SurveyVO param){
+//    	System.out.println("** "+param.toString());
+    	sqlSession.insert("insertSurvey", param);
+    }
+    
+    public SurveyVO getSurvey(String surno){
+    	return sqlSession.selectOne("getSurvey", surno);
+    }
 }

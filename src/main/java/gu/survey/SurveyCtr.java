@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import gu.admin.board.BoardGroupVO;
 import gu.board.BoardSearchVO;
 import gu.board.BoardSvc;
+import gu.board.BoardVO;
+import gu.common.FileUtil;
+import gu.common.FileVO;
 import gu.common.Util4calen;
 import gu.etc.EtcSvc;
 
@@ -60,7 +63,10 @@ public class SurveyCtr {
         // -----------------------------------------
     	
         String surno = request.getParameter("surno");
+//        System.out.println("++ "+surno);
         
+        SurveyVO surveyVO = surveySvc.getSurvey(surno);
+        modelMap.addAttribute("result",surveyVO);
         return "survey/SurveyRead";
     }
     
@@ -82,5 +88,31 @@ public class SurveyCtr {
          modelMap.addAttribute("today", today);
          
          return "survey/SurveyForm";
+    }
+    
+    /**
+     * 글 저장.
+     */
+    @RequestMapping(value = "/surveySave")
+    public String boardSave(HttpServletRequest request, SurveyVO surveyInfo) {
+        String userno = request.getSession().getAttribute("userno").toString();
+        surveyInfo.setUserno(userno);
+
+//        if (surveyInfo.getBrdno() != null && !"".equals(surveyInfo.getBrdno())) {    // check auth for update
+//            String chk = boardSvc.selectBoardAuthChk(surveyInfo);
+//            if (chk == null) {
+//                return "common/noAuth";
+//            }
+//        }
+        
+//        String[] fileno = request.getParameterValues("fileno");
+//        FileUtil fs = new FileUtil();
+//        List<FileVO> filelist = fs.saveAllFiles(surveyInfo.getUploadfile());
+
+        surveySvc.insertSurvey(surveyInfo);
+        
+//        System.out.println("** "+surveyInfo.toString());
+
+        return "redirect:/surveyList?bgno=" + surveyInfo.getBgno();
     }
 }
